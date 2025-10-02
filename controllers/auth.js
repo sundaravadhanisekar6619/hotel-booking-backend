@@ -32,7 +32,13 @@ exports.getLogin = (req, res, next) => {
 exports.postLogin = (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
-  
+
+    req.session.isLoggedIn = true;
+    req.session.user = '';
+    return req.session.save((err) => {
+        res.redirect('/users');
+    });
+    
     const errors = validationResult(req);
     console.log(errors.array()); 
     if (!errors.isEmpty()){

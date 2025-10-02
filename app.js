@@ -104,7 +104,8 @@ app.use("/api/offers", offerApiRoutes);
 app.use("/api/payments", paymentApiRoutes);
 app.use("/api/notifications", notificationApiRoutes);
 
-mongoose.connect('mongodb://localhost:27017/hotel_booking?retryWrites=true&w=majority&appName=Cluster0')
+// mongoose.connect('mongodb://localhost:27017/hotel_booking?retryWrites=true&w=majority&appName=Cluster0')
+mongoose.connect('mongodb+srv://testuser:testuser@mongocluster.ff4bwxf.mongodb.net/hotel_booking?retryWrites=true&w=majority&appName=mongocluster')
 .then(() => {
     app.listen(3000);
 })

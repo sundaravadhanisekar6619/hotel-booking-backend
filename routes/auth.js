@@ -16,7 +16,6 @@ check('email')
     .normalizeEmail(),
 body('password', 'Please enter a correct password.')
     .isLength({ min: 5 })
-    .isAlphanumeric()
     .trim()
 ],
 authController.postLogin);

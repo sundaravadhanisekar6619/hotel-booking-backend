@@ -1,0 +1,110 @@
+=<%- include('../includes/head.ejs') %>
+</head>
+
+<%- include('../includes/navigation.ejs') %>
+
+<div class="pcoded-content">
+  <div class="pcoded-inner-content">
+    <div class="main-body">
+      <div class="page-wrapper">
+
+        <!-- Page-header -->
+        <div class="page-header">
+          <div class="row align-items-end">
+            <div class="col-lg-8">
+              <div class="page-header-title">
+                <div class="d-inline">
+                  <h4>Offer Management</h4>
+                  <span>Offers</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="page-header-breadcrumb">
+                <ul class="breadcrumb-title">
+                  <li class="breadcrumb-item"><a href="/"> <i class="feather icon-home"></i> </a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Page-header end -->
+
+        <!-- Page-body -->
+        <div class="page-body">
+          <div class="card">
+            <div class="card-header">
+             <img src="/images/edit-icon.svg" alt="QRcode">
+              <a href="/create-offer"><i class="feather icon-add"></i> Add Offer</a>
+            </div>
+
+            <div class="card-block">
+              <div class="table-responsive dt-responsive">
+                <table id="dom-jqry" class="table table-striped table-bordered nowrap">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Title</th>
+                      <th>Discount (%)</th>
+                      <th>Valid From</th>
+                      <th>Valid Till</th>
+                      <th>Code</th>
+                      <th>Active</th>
+                      <th>Edit</th>
+                      <th>Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% if(offers.length > 0) { %>
+                      <% offers.forEach(o => { %>
+                        <tr>
+                          <td><%= o._id %></td>
+                          <td><%= o.title %></td>
+                          <td><%= o.discountPercentage %></td>
+                          <td><%= o.validFrom.toISOString().slice(0,10) %></td>
+                          <td><%= o.validTill.toISOString().slice(0,10) %></td>
+                          <td><%= o.code %></td>
+                          <td><%= o.isActive ? 'Yes' : 'No' %></td>
+                          <td>
+                            <a href="/offer/edit/<%= o._id %>">
+                              <img src="/images/edit-icon.svg" alt="Edit">
+                            </a>
+                          </td>
+                          <td>
+                            <button onclick="deleteOffer(this)" class="btn-delete" data-offerid="<%= o._id %>">
+                              <img src="/images/delete.svg" alt="Delete">
+                            </button>
+                          </td>
+                        </tr>
+                      <% }) %>
+                    <% } else { %>
+                      <tr>
+                        <td colspan="9" class="text-center">No offers found!</td>
+                      </tr>
+                    <% } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Page-body end -->
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  async function deleteOffer(btn) {
+    const offerId = btn.dataset.offerid;
+    const res = await fetch('/offer/' + offerId, { method: 'DELETE' });
+    if (res.ok) {
+      location.reload();
+    } else {
+      alert('Failed to delete offer');
+    }
+  }
+</script>
+
+<%- include('../includes/end.ejs') %>

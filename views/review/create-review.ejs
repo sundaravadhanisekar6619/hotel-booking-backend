@@ -1,0 +1,128 @@
+<%- include('../includes/head.ejs') %>
+</head>
+
+<%- include('../includes/navigation.ejs') %>
+
+<div class="pcoded-content">
+  <div class="pcoded-inner-content">
+    <div class="main-body">
+      <div class="page-wrapper">
+
+        <!-- Page Header -->
+        <div class="page-header">
+          <div class="row align-items-end">
+            <div class="col-lg-8">
+              <div class="page-header-title">
+                <div class="d-inline">
+                  <h4><%= editing ? "Update Review" : "Add Review" %></h4>
+                  <span>Manage hotel room reviews</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="page-header-breadcrumb">
+                <ul class="breadcrumb-title">
+                  <li class="breadcrumb-item"><a href="/"> <i class="feather icon-home"></i> </a></li>
+                  <li class="breadcrumb-item"><a href="/reviews">Reviews</a></li>
+                  <li class="breadcrumb-item"><%= editing ? "Update Review" : "Add Review" %></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Body -->
+        <div class="page-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="card">
+                <div class="card-header">
+                  <h5>Review Form</h5>
+                </div>
+                <div class="card-block">
+                  <form action="<%= editing ? '/review/edit/' + oldInput.id : '/review' %>" method="POST" class="j-pro">
+
+                    <div class="j-content">
+
+                      <!-- User Selection -->
+                      <div class="j-row">
+                        <div class="j-span6 j-unit">
+                          <label class="j-input j-select">
+                            <select name="user" required>
+                              <option value="">Select User</option>
+                              <% users.forEach(u => { %>
+                                <option value="<%= u._id %>" <%= oldInput.user === u._id.toString() ? 'selected' : '' %>><%= u.name %> - <%= u.email %></option>
+                              <% }) %>
+                            </select>
+                          </label>
+                        </div>
+
+                        <!-- Room Selection -->
+                        <div class="j-span6 j-unit">
+                          <label class="j-input j-select">
+                            <select name="room" required>
+                              <option value="">Select Room</option>
+                              <% rooms.forEach(r => { %>
+                                <option value="<%= r._id %>" <%= oldInput.room === r._id.toString() ? 'selected' : '' %>><%= r.hotelName %> - <%= r.roomNumber %> (<%= r.roomType %>)</option>
+                              <% }) %>
+                            </select>
+                          </label>
+                        </div>
+                      </div>
+
+                      <!-- Rating -->
+                      <div class="j-row">
+                        <div class="j-span6 j-unit">
+                          <div class="j-input">
+                            <label for="rating">Rating (1-5)</label>
+                            <input type="number" name="rating" id="rating" min="1" max="5" value="<%= oldInput.rating || '' %>" required>
+                          </div>
+                        </div>
+
+                        <!-- Approved Checkbox -->
+                        <div class="j-span6 j-unit">
+                          <div class="checkbox-fade fade-in-primary j-input">
+                            <label>
+                              <input type="checkbox" name="approved" value="true" <%= oldInput.approved ? 'checked' : '' %>>
+                              <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+                              <span>Approved</span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Comment -->
+                      <div class="j-row">
+                        <div class="j-span12 j-unit">
+                          <div class="j-input">
+                            <label for="comment">Comment</label>
+                            <textarea name="comment" id="comment" rows="4"><%= oldInput.comment || '' %></textarea>
+                          </div>
+                        </div>
+                      </div>
+
+                      <% if(editing) { %>
+                        <input type="hidden" name="reviewId" value="<%= oldInput.id %>">
+                      <% } %>
+
+                    </div>
+
+                    <!-- Form Footer -->
+                    <div class="j-footer">
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                      <button type="reset" class="btn btn-default m-r-20">Reset</button>
+                    </div>
+
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../includes/end.ejs') %>

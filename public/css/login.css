@@ -1,0 +1,254 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+}
+html{
+    font-family:Prompt,sans-serif;
+}
+.robotrip-background{
+    background-image: url('/images/login/BG.png');
+    max-width: 100vw;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    position: relative;
+}
+.login-div{
+    max-width: 500px;
+    height:auto;
+    width: auto;
+    border-radius: 15px;
+    border: 1px solid #434C60;
+    background: rgba(255, 255, 255, 0.31);
+    box-shadow: 13px 16px 10px 0px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(5px);
+    padding: 20px;
+}
+.logo{
+    text-align: center;
+}
+.logo img{
+    display: inline-block;
+    max-width: 40%;
+}
+.icon-bg{
+    display: block;
+    border-radius: 5px 0px 0px 5px;
+    border: 1px solid #939393;
+    width:35px;
+    height: auto;
+    background: #EDEDED;
+    padding: 3px;
+    position: relative;
+}
+.icon-bg img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.user-div,.password-div{
+    max-width: 100%;
+    width:80%;
+   margin: 0 auto;
+}
+.user-div input{
+    border-radius:0 5px 5px 0px;
+    border: 1px solid #939393;
+    background: #FFF;
+    display:inline-block;
+    padding:15px;
+    max-width: 100%;
+    width:100%;
+    font-size: 16px;
+    font-weight: 400;
+    color: #000;
+}
+.password-div input{
+    border-radius: 0 5px 5px 0px;
+    border: 1px solid #939393;
+    background: #FFF;
+    display:inline-block;
+    padding:15px;
+    max-width: 100%;
+    width:100%;
+    font-size: 16px;
+    font-weight: 400;
+    color: #000;
+}
+.user-div,.password-div{
+    display: flex;
+}
+.login-form{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    margin-top: 25px;
+}
+.login-btn{
+    display:inline-block;
+    letter-spacing:5.8px;
+    border-radius: 6px;
+    background: #1F2A41;
+    color: #fff;
+    padding: 15px 40px;
+    font-weight: 400;
+    font-size:24px;
+    width: 50%;
+    border: none;
+}
+#pad-top{
+    margin-top: 10px!important;
+    margin-bottom: 10px;
+}
+#for-item{
+    color: red;
+
+}
+.overlay-position{
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.login-div-btn{
+    text-align: center;
+    margin-bottom: 20px;
+}
+.hotel-logo{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+/* responsive */
+@media(max-width:1000px){
+    .password-div input{
+        padding: 10px;
+    }
+    .user-div input{
+        padding: 10px;
+    }
+    .user-div, .password-div{
+        width: 90%;
+    }
+    .login-btn{
+        font-size: 20px;
+    }
+    .overlay-position {
+        position: absolute;
+        top: 40%;
+        left: 0%;
+        right: 0%;
+       transform: translate(0%,-50%);
+       max-width:55%;
+       margin: 0 auto;
+    }
+    .login-div{
+        width: auto;
+        max-width: 100%;
+    }
+}
+@media(max-width:760px){
+    .password-div input{
+        padding: 10px;
+    }
+    .user-div input{
+        padding: 10px;
+    }
+    .user-div, .password-div{
+        width: 95%;
+    }
+    .login-btn{
+        font-size: 20px;
+    }
+    .overlay-position {
+        position: absolute;
+        top: 40%;
+        left:0%;
+        right:0%;
+       transform: translate(0%,-50%);
+       max-width: 60%;
+       margin: 0 auto;
+    }
+    .login-div{
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px 20px;
+        width: auto;
+    }
+    .login-btn{
+        width:50%;
+        font-size: 16px;
+    }
+    .login-form{
+        row-gap: 20px;
+    }
+    
+}
+@media(max-width:600px){
+    .overlay-position {
+        position: absolute;
+        top: 40%;
+        left:0%;
+        right:0%;
+        transform: translate(0%,-50%);
+        max-width: 80%;
+        margin: 0 auto;
+    }
+    .login-div{
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px 20px;
+        width: auto;
+    }
+    .login-btn{
+      max-width: 80%;
+      margin: 0 auto;
+    }
+
+}
+@media(max-width:450px){
+    .login-div-btn{
+        max-width: 100%;
+        margin: 0 auto 20px auto;
+    }
+    .login-btn{
+        max-width: 100%;
+        margin: 0 auto;
+        width: 100%;
+      }
+      .overlay-position {
+        position: absolute;
+        top: 40%;
+        left:0%;
+        right:0%;
+        transform: translate(0%,-50%);
+        max-width: 90%;
+        margin: 0 auto;
+    }
+    .login-div{
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 15px 15px;
+        width: auto;
+    }
+}
+span.error-login {
+    color: red;
+    display: block;
+    max-width: 100%;
+    width: 80%;
+    margin: 0 auto; 
+  }
+
+  .fade {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+.fade.show {
+  opacity: 1;
+}

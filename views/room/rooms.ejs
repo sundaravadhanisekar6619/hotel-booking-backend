@@ -1,0 +1,135 @@
+<%- include('../includes/head.ejs') %>
+</head>
+
+<%- include('../includes/navigation.ejs') %>
+
+<div class="pcoded-content">
+  <div class="pcoded-inner-content">
+    <!-- Main-body start -->
+    <div class="main-body">
+      <div class="page-wrapper">
+        <!-- Page-header start -->
+        <div class="page-header">
+          <div class="row align-items-end">
+            <div class="col-lg-8">
+              <div class="page-header-title">
+                <div class="d-inline">
+                  <h4>Room Management</h4>
+                  <span>Rooms</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="page-header-breadcrumb">
+                <ul class="breadcrumb-title">
+                  <li class="breadcrumb-item">
+                    <a href="/"> <i class="feather icon-home"></i> </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Page-header end -->
+
+        <!-- Page-body start -->
+        <div class="page-body">
+          <!-- Room Table start -->
+          <div class="card">
+            <% if(isAdmin){ %>
+            <div class="card-header">
+              <img src="/images/edit-icon.svg" alt="QRcode">
+              <a href="/create-room"><i class="feather icon-add"></i> Add Room</a>
+            </div>
+            <% } %>
+
+            <div class="card-block">
+              <div class="table-responsive dt-responsive">
+                <table id="dom-jqry" class="table table-striped table-bordered nowrap">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Hotel Name</th>
+                      <th>Room Number</th>
+                      <th>Room Type</th>
+                      <th>Price/Night</th>
+                      <th>Availability</th>
+                      <th>Edit</th>
+                      <% if(isAdmin){ %>
+                      <th>Delete</th>
+                      <% } %>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% if(rooms.length > 0) { %>
+                      <% rooms.forEach(r => { %>
+                        <tr>
+                          <td><%= r.id %></td>
+                          <td><%= r.hotelName %></td>
+                          <td><%= r.roomNumber %></td>
+                          <td><%= r.roomType %></td>
+                          <td>$<%= r.pricePerNight %></td>
+                          <td>
+                            <% if(r.availability) { %>
+                              <span class="badge badge-success">Available</span>
+                            <% } else { %>
+                              <span class="badge badge-danger">Booked</span>
+                            <% } %>
+                          </td>
+                          <td>
+                            <a href="/room/edit/<%= r.id %>">
+                              <img src="/images/edit-icon.svg" alt="Edit">
+                              <span>Edit</span>
+                            </a>
+                          </td>
+                          <% if(isAdmin){ %>
+                          <td>
+                            <button onclick="deleteRoom(this)" class="btn-delete" data-roomid="<%= r.id %>">
+                              <img src="/images/delete.svg" alt="Delete">
+                              <span>Delete</span>
+                            </button>
+                          </td>
+                          <% } %>
+                        </tr>
+                      <% }) %>
+                    <% } else { %>
+                      <tr>
+                        <td colspan="8" class="text-center">No rooms found!</td>
+                      </tr>
+                    <% } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- Room Table end -->
+        </div>
+        <!-- Page-body end -->
+      </div>
+    </div>
+    <!-- Main-body end -->
+  </div>
+</div>
+
+<%- include('../includes/end.ejs') %>
+
+<script>
+  async function deleteRoom(button) {
+    const roomId = button.getAttribute("data-roomid");
+    if (confirm("Are you sure you want to delete this room?")) {
+      try {
+        const response = await fetch(`/room/${roomId}`, {
+          method: "DELETE"
+        });
+        if (response.ok) {
+          window.location.reload();
+        } else {
+          alert("Failed to delete room.");
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Error deleting room.");
+      }
+    }
+  }
+</script>

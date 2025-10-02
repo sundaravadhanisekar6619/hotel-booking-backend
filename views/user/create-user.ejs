@@ -1,0 +1,171 @@
+<%- include('../includes/head.ejs') %>
+</head>
+
+<%- include('../includes/navigation.ejs') %>
+
+<div class="pcoded-content">
+  <div class="pcoded-inner-content">
+    <!-- Main-body start -->
+    <div class="main-body">
+      <div class="page-wrapper">
+        <!-- Page-header start -->
+        <div class="page-header">
+          <div class="row align-items-end">
+            <div class="col-lg-8">
+              <div class="page-header-title">
+                <div class="d-inline">
+                  <h4><%= editing ? "Update User" : "Add User" %></h4>
+                  <span>Can create three different types of users: <code>Super Admin</code>, <code>Admin</code>, <code>User</code></span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="page-header-breadcrumb">
+                <ul class="breadcrumb-title">
+                  <li class="breadcrumb-item"><a href="/"> <i class="feather icon-home"></i> </a></li>
+                  <li class="breadcrumb-item"><a href="/users">User</a></li>
+                  <li class="breadcrumb-item"><a href="#"><%= editing ? "Update User" : "Add User" %></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Page-header end -->
+
+        <div class="page-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="card">
+                <div class="card-header">
+                  <h5>User Form</h5>
+                </div>
+                <div class="card">
+                  <div class="card-block">
+                    <div class="j-wrapper j-wrapper-940">
+
+                      <form action="<%= editing ? '/user/edit/' + oldInput.id : '/user' %>" method="POST" class="j-pro" id="j-pro" enctype="application/x-www-form-urlencoded" novalidate="">
+
+                        <div class="j-content">
+
+                          <!-- Name & Email -->
+                          <div class="j-row">
+                            <div class="j-span6 j-unit">
+                              <div class="j-input <%= validationErrors.find(e => e.path === 'name') ? 'j-error-view' : '' %>">
+                                <label class="j-icon-right" for="name"><i class="icofont icofont-ui-user"></i></label>
+                                <input type="text" id="name" name="name" placeholder="Username" value="<%= oldInput.name %>" class="<%= validationErrors.find(e => e.path === 'name') ? 'invalid' : '' %>">
+                                <% if(validationErrors.find(e => e.path === 'name')) { %>
+                                  <span class="j-error-view"><%= validationErrors.find(e => e.path === 'name').msg %></span>
+                                <% } %>
+                              </div>
+                            </div>
+
+                            <div class="j-span6 j-unit">
+                              <div class="j-input <%= validationErrors.find(e => e.path === 'email') ? 'j-error-view' : '' %>">
+                                <label class="j-icon-right" for="email"><i class="icofont icofont-envelope"></i></label>
+                                <input type="email" placeholder="Email" id="email" name="email" value="<%= oldInput.email %>">
+                                <% if(validationErrors.find(e => e.path === 'email')) { %>
+                                  <span class="j-error-view"><%= validationErrors.find(e => e.path === 'email').msg %></span>
+                                <% } %>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Password & Confirm Password -->
+                          <div class="j-row">
+                            <div class="j-span6 j-unit">
+                              <div class="j-input <%= validationErrors.find(e => e.path === 'password') ? 'j-error-view' : '' %>">
+                                <label class="j-icon-right" for="password"><i class="icofont icofont-file-code"></i></label>
+                                <input type="password" placeholder="Password" id="password" name="password" value="" class="<%= validationErrors.find(e => e.path === 'password') ? 'invalid' : '' %>">
+                                <% if(validationErrors.find(e => e.path === 'password')) { %>
+                                  <span class="j-error-view"><%= validationErrors.find(e => e.path === 'password').msg %></span>
+                                <% } else if(editing) { %>
+                                  <span class="j-help-text">Leave blank to keep existing password</span>
+                                <% } %>
+                              </div>
+                            </div>
+
+                            <div class="j-span6 j-unit">
+                              <div class="j-input <%= validationErrors.find(e => e.path === 'confirmPassword') ? 'j-error-view' : '' %>">
+                                <label class="j-icon-right" for="confirmPassword"><i class="icofont icofont-file-code"></i></label>
+                                <input type="password" placeholder="Confirm Password" id="confirmPassword" name="confirmPassword" value="" class="<%= validationErrors.find(e => e.path === 'confirmPassword') ? 'invalid' : '' %>">
+                                <% if(validationErrors.find(e => e.path === 'confirmPassword')) { %>
+                                  <span class="j-error-view"><%= validationErrors.find(e => e.path === 'confirmPassword').msg %></span>
+                                <% } %>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Phone -->
+                          <div class="j-row">
+                            <div class="j-span6 j-unit">
+                              <div class="j-input <%= validationErrors.find(e => e.path === 'phone') ? 'j-error-view' : '' %>">
+                                <label class="j-icon-right" for="phone"><i class="icofont icofont-ui-user"></i></label>
+                                <input type="text" id="phone" name="phone" placeholder="Phone" value="<%= oldInput.phone %>" class="<%= validationErrors.find(e => e.path === 'phone') ? 'invalid' : '' %>">
+                                <% if(validationErrors.find(e => e.path === 'phone')) { %>
+                                  <span class="j-error-view"><%= validationErrors.find(e => e.path === 'phone').msg %></span>
+                                <% } %>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- User Type -->
+                          <div class="j-unit <%= validationErrors.find(e => e.path === 'user_type') ? 'j-error-view' : '' %>">
+                            <% if(isSuperAdmin) { %>
+                              <label class="j-input j-select">
+                                <select name="user_type">
+                                  <option value="">Select User Type</option>
+                                  <option value="user" <%= oldInput.user_type === 'user' ? 'selected' : '' %>>User</option>
+                                  <option value="admin" <%= oldInput.user_type === 'admin' ? 'selected' : '' %>>Admin</option>
+                                  <option value="super_admin" <%= oldInput.user_type === 'super_admin' ? 'selected' : '' %>>Super Admin</option>
+                                </select>
+                                <% if(validationErrors.find(e => e.path === 'user_type')) { %>
+                                  <span class="j-error-view"><%= validationErrors.find(e => e.path === 'user_type').msg %></span>
+                                <% } %>
+                              </label>
+                            <% } else { %>
+                              <input type="hidden" name="user_type" value="<%= oldInput.user_type %>">
+                            <% } %>
+                          </div>
+
+                          <!-- Status -->
+                          <div class="j-row">
+                            <div class="j-span6 j-unit">
+                              <div class="checkbox-fade fade-in-primary j-input">
+                                <label>
+                                  <input type="checkbox" name="status" value="active" <%= oldInput.status === 'active' ? 'checked' : '' %>>
+                                  <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+                                  <span>Status</span>
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+
+                          <% if(editing) { %>
+                            <input type="hidden" name="userId" value="<%= oldInput.id %>">
+                          <% } %>
+
+                        </div>
+
+                        <div class="j-footer">
+                          <button type="submit" class="btn btn-primary">Send</button>
+                          <button type="reset" class="btn btn-default m-r-20">Reset</button>
+                        </div>
+
+                      </form>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- User form end -->
+            </div>
+          </div>
+        </div>
+        <!-- Page body end -->
+      </div>
+    </div>
+    <!-- Main-body end -->
+  </div>
+</div>
+
+<%- include('../includes/end.ejs') %>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><%= pageTitle %></title>
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+
+<body>
+
+    <section class="robotrip-background">
+        <div class="overlay-position">
+            <div class="login-div">
+                <div class="logo">
+                    <img src="/images/login/hotel-logo.png" alt="hotel logo">
+                    <% if (errorMessage && !(validationErrors[1]) ){ %>
+                    <div class="user-message user-message--error" id="for-item"><%= errorMessage %></div>
+                    <% } %>
+                </div>
+                <form class="login-form" action="/login" method="POST">
+                    <div class="user-div">
+                        <div class="icon-bg">
+                            <img src="/images/login/usericon.png">
+                        </div>
+                        <input class="<%= validationErrors.find( e => e.path === 'email') ? 'invalid' : '' %>"
+                        type="text" name="email" id="email" value="<%= oldInput.email %>">
+                    </div>
+                    <% if(validationErrors[0]){ %>
+                        <span id="errorText" class="error-login"><%= validationErrors.find( e => e.path === 'email') ? validationErrors[0].msg : '' %></span>
+                        <% } %>
+                    <div class="password-div" id="pad-top">
+                        <div class="icon-bg">
+                         <img src="/images/login/passicon.png">
+                        </div>
+                        <input 
+                        class="<%= validationErrors.find( e => e.path === 'password') ? 'invalid' : '' %>"
+                        type="password" name="password" id="password" value="<%= oldInput.password %>">
+                    </div>
+                    <% if(validationErrors[1]){ %>
+                        <span id="errorText" class="error-login"><%= validationErrors.find( e => e.path === 'password') ? validationErrors[1].msg : '' %></span>
+                    <% } %>
+                    <div class="login-div-btn">
+                        <button class="login-btn">LOGIN</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+       
+    </section>
+    
+    </body>
+    </html>

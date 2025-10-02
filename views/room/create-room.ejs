@@ -1,0 +1,171 @@
+<%- include('../includes/head.ejs') %>
+</head>
+
+<%- include('../includes/navigation.ejs') %>
+
+<div class="pcoded-content">
+  <div class="pcoded-inner-content">
+    <div class="main-body">
+      <div class="page-wrapper">
+
+        <!-- Page-header -->
+        <div class="page-header">
+          <div class="row align-items-end">
+            <div class="col-lg-8">
+              <div class="page-header-title">
+                <div class="d-inline">
+                  <h4><%= editing ? "Update Room" : "Add Room" %></h4>
+                  <span>Fill in the details for the room</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="page-header-breadcrumb">
+                <ul class="breadcrumb-title">
+                  <li class="breadcrumb-item"><a href="/"> <i class="feather icon-home"></i> </a></li>
+                  <li class="breadcrumb-item"><a href="/rooms">Rooms</a></li>
+                  <li class="breadcrumb-item"><a href="#"><%= editing ? "Update Room" : "Add Room" %></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Page-header end -->
+
+        <div class="page-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="card">
+                <div class="card-header">
+                  <h5>Room Form</h5>
+                </div>
+                <div class="card">
+                  <div class="card-block">
+                    <div class="j-wrapper j-wrapper-940">
+
+                      <form action="<%= editing ? '/room/edit/' + oldInput.id : '/room' %>" 
+                            method="POST" 
+                            class="j-pro" 
+                            enctype="application/x-www-form-urlencoded" 
+                            novalidate="">
+
+                        <div class="j-content">
+
+                          <!-- Hotel Name -->
+                          <div class="j-unit">
+                            <label for="hotelName">Hotel Name</label>
+                            <input type="text" id="hotelName" name="hotelName" placeholder="Hotel Name" 
+                                   value="<%= oldInput.hotelName %>">
+                          </div>
+
+                          <!-- Room Number -->
+                          <div class="j-unit">
+                            <label for="roomNumber">Room Number</label>
+                            <input type="text" id="roomNumber" name="roomNumber" placeholder="Room Number" 
+                                   value="<%= oldInput.roomNumber %>">
+                          </div>
+
+                          <!-- Room Type -->
+                          <div class="j-unit">
+                            <label for="roomType">Room Type</label>
+                            <select name="roomType" id="roomType">
+                              <option value="">Select Type</option>
+                              <option value="single" <%= oldInput.roomType === 'single' ? 'selected' : '' %>>Single</option>
+                              <option value="double" <%= oldInput.roomType === 'double' ? 'selected' : '' %>>Double</option>
+                              <option value="suite" <%= oldInput.roomType === 'suite' ? 'selected' : '' %>>Suite</option>
+                              <option value="deluxe" <%= oldInput.roomType === 'deluxe' ? 'selected' : '' %>>Deluxe</option>
+                            </select>
+                          </div>
+
+                          <!-- Description -->
+                          <div class="j-unit">
+                            <label for="description">Description</label>
+                            <textarea id="description" name="description" placeholder="Room description"><%= oldInput.description %></textarea>
+                          </div>
+
+                          <!-- Images (comma separated for now) -->
+                          <div class="j-unit">
+                            <label for="images">Images (comma separated URLs)</label>
+                            <input type="text" id="images" name="images" placeholder="e.g. img1.jpg,img2.jpg" 
+                                   value="<%= oldInput.images ? oldInput.images.join(',') : '' %>">
+                          </div>
+
+                          <!-- Price Per Night -->
+                          <div class="j-unit">
+                            <label for="pricePerNight">Price per Night</label>
+                            <input type="number" id="pricePerNight" name="pricePerNight" placeholder="Price" 
+                                   value="<%= oldInput.pricePerNight %>">
+                          </div>
+
+                          <!-- Size -->
+                          <div class="j-unit">
+                            <label for="size">Room Size</label>
+                            <input type="text" id="size" name="size" placeholder="e.g. 30 sqm" 
+                                   value="<%= oldInput.size %>">
+                          </div>
+
+                          <!-- Bed Type -->
+                          <div class="j-unit">
+                            <label for="bedType">Bed Type</label>
+                            <input type="text" id="bedType" name="bedType" placeholder="e.g. King, Queen, Twin" 
+                                   value="<%= oldInput.bedType %>">
+                          </div>
+
+                          <!-- View -->
+                          <div class="j-unit">
+                            <label for="view">View</label>
+                            <input type="text" id="view" name="view" placeholder="e.g. Sea View, City View" 
+                                   value="<%= oldInput.view %>">
+                          </div>
+
+                          <!-- Amenities -->
+                          <div class="j-unit">
+                            <label for="amenities">Amenities (comma separated)</label>
+                            <input type="text" id="amenities" name="amenities" placeholder="e.g. WiFi,TV,AC" 
+                                   value="<%= oldInput.amenities ? oldInput.amenities.join(',') : '' %>">
+                          </div>
+
+                          <!-- Max Guests -->
+                          <div class="j-unit">
+                            <label for="maxGuests">Max Guests</label>
+                            <input type="number" id="maxGuests" name="maxGuests" placeholder="Max Guests" 
+                                   value="<%= oldInput.maxGuests %>">
+                          </div>
+
+                           <!-- Availability -->
+                          <div class="j-unit">
+                            <label>
+                              <input type="checkbox" name="availability" value="true" <%= oldInput.availability ? 'checked' : '' %>>
+                              Available
+                            </label>
+                          </div>
+
+
+                          <% if(editing) { %>
+                            <input type="hidden" name="roomId" value="<%= oldInput.id %>">
+                          <% } %>
+
+                        </div>
+
+                        <div class="j-footer">
+                          <button type="submit" class="btn btn-primary">Save</button>
+                          <button type="reset" class="btn btn-default m-r-20">Reset</button>
+                        </div>
+
+                      </form>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Room form end -->
+            </div>
+          </div>
+        </div>
+        <!-- Page body end -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../includes/end.ejs') %>

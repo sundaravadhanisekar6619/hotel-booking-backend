@@ -1,0 +1,76 @@
+<%- include('../includes/head.ejs') %>
+</head>
+<%- include('../includes/navigation.ejs') %>
+
+<div class="pcoded-content">
+  <div class="pcoded-inner-content">
+    <div class="main-body">
+      <div class="page-wrapper">
+
+        <div class="page-header">
+          <h4><%= editing ? "Update Offer" : "Add Offer" %></h4>
+        </div>
+
+        <div class="page-body">
+          <form action="<%= editing ? '/offer/edit/' + oldInput.id : '/offer' %>" method="POST" class="j-pro">
+            <div class="j-content">
+
+              <div class="j-row">
+                <div class="j-span6 j-unit">
+                  <label>Title</label>
+                  <input type="text" name="title" value="<%= oldInput.title %>" required>
+                </div>
+                <div class="j-span6 j-unit">
+                  <label>Discount (%)</label>
+                  <input type="number" name="discountPercentage" value="<%= oldInput.discountPercentage %>" min="0" max="100" required>
+                </div>
+              </div>
+
+              <div class="j-row">
+                <div class="j-span6 j-unit">
+                  <label>Valid From</label>
+                  <input type="date" name="validFrom" value="<%= oldInput.validFrom %>" required>
+                </div>
+                <div class="j-span6 j-unit">
+                  <label>Valid Till</label>
+                  <input type="date" name="validTill" value="<%= oldInput.validTill %>" required>
+                </div>
+              </div>
+
+              <div class="j-row">
+                <div class="j-span6 j-unit">
+                  <label>Code</label>
+                  <input type="text" name="code" value="<%= oldInput.code %>" required>
+                </div>
+                <div class="j-span6 j-unit">
+                  <label>Active</label>
+                  <input type="checkbox" name="isActive" value="true" <%= oldInput.isActive ? 'checked' : '' %>>
+                </div>
+              </div>
+
+              <div class="j-row">
+                <div class="j-span12 j-unit">
+                  <label>Description</label>
+                  <textarea name="description"><%= oldInput.description %></textarea>
+                </div>
+              </div>
+
+              <% if(editing) { %>
+                <input type="hidden" name="offerId" value="<%= oldInput.id %>">
+              <% } %>
+
+            </div>
+
+            <div class="j-footer">
+              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="reset" class="btn btn-default m-r-20">Reset</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../includes/end.ejs') %>
